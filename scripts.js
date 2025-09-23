@@ -99,6 +99,26 @@ document.addEventListener('keydown', (event) =>
 //     // Your code here!
 // }
 
+function addLetter(letter)
+{
+    if(currentTile >= 5) //check to make sure there is another tile to add letters to
+    {
+        logDebug("Tile index is out of bounds, can't add another letter.");
+        return;
+    }
+    else //changing the value of the current tile and moving to the next
+    {
+        const rowElement = rows[currentRow];
+        const tiles = rowElement.querySelectorAll('.tile');
+
+        tiles[currentTile].textContent = letter;
+        tiles[currentTile].classList.add('filled');
+        currentTile += 1;
+
+        logDebug("Current row: [" + currentRow + "], Current tile: [" + currentTile + "], Current word: [" + getCurrentWord() + "]");
+    }
+}
+
 // TODO: Implement deleteLetter function  
 // function deleteLetter() {
 //     // Your code here!
