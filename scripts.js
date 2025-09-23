@@ -72,6 +72,28 @@ document.addEventListener('DOMContentLoaded', function() {
 //     // Your code here!
 // });
 
+document.addEventListener('keydown', (event) => 
+    {
+        if(gameOver === false)
+        {
+            if(event.key.length === 1 && event.key.toUpperCase() >= 'A' && event.key.toUpperCase() <= 'Z')
+            {
+                logDebug("Single '" + event.key + "' key was pressed.");
+                addLetter(event.key.toUpperCase());
+            }
+            else if(event.key === 'Backspace')
+            {
+                logDebug("Single 'Backspace' key was pressed.");
+                deleteLetter();
+            }
+            else if(event.key === 'Enter')
+            {
+                logDebug("Single 'Enter' key was pressed.");
+                submitGuess();
+            }
+        }
+    });
+
 // TODO: Implement addLetter function
 // function addLetter(letter) {
 //     // Your code here!
