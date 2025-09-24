@@ -101,6 +101,9 @@ document.addEventListener('keydown', (event) =>
 
 function addLetter(letter)
 {
+    if(gameOver == true)
+        {return;}
+
     if(currentTile >= 5) //check to make sure there is another tile to add letters to
     {
         logDebug("Tile index is out of bounds, can't add another letter.");
@@ -126,6 +129,9 @@ function addLetter(letter)
 
 function deleteLetter()
 {
+    if(gameOver == true)
+        {return;}
+
     if(currentTile <= 0) //check if another tile can be deleted
     {
         logDebug("Tile index is too low, can't delete");
@@ -151,6 +157,9 @@ function deleteLetter()
 
 function submitGuess()
 {
+    if(gameOver == true)
+        {return;}
+
     if(currentTile !== 5) //check that five letters have been entered
     {
         logDebug("Can't submit guess, not enough letters");
@@ -169,11 +178,11 @@ function submitGuess()
         currentTile = 0;
         logDebug("Guess was '" + word + "' target word is '" + TARGET_WORD + "'.")
 
-        //checkGuess(); //check guess
+        checkGuess(word, tiles); //check guess
 
         if(word === TARGET_WORD)
         {
-            GameOver = true;
+            gameOver = true;
             logDebug("Target word hit. Game Over.");
             setTimeout(() => alert("You Win"), 500);
         }
@@ -197,10 +206,10 @@ function submitGuess()
 //     // Return the result array
 // }
 
-function checkGuess(guess, tiles)
+function checkGuess(guessIn, tiles)
 {
-    const target = Target_WORD.split("");
-    const guess = guess.split("");
+    const target = TARGET_WORD.split("");
+    const guess = guessIn.split("");
     const result = ['absent','absent','absent','absent','absent'];
 
     //check for correct letters
@@ -215,9 +224,34 @@ function checkGuess(guess, tiles)
     //check if the letter is present in the target word
     for(let i = 0; i < 5; i++)
     {
-        if(result[i] != 'correct')
+        if(result[i] !== 'correct')
         {
-            
+            for(let g = 0; g < 5; g++)
+            {
+                if(target[g] == guess[i])
+                {
+                    result[i] = 'present';
+                }
+            }
         }
     }
+
+    //applying css styles to tiles
+    for(let i = 0; i <= 5; i++)
+    {
+        if(result[i] == 'absent')
+        {
+            tiles[i].classList.add('absent');
+        }
+        else if(result[i] == 'present')
+        {
+            tiles[i].classList.add('present');
+        }
+        else if(result[i] == 'correct')
+        {
+            tiles[i].classList.add('correct');
+        }
+    }
+
+    logDebug("Guess has been checked: " + result);
 }
