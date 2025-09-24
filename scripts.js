@@ -124,6 +124,26 @@ function addLetter(letter)
 //     // Your code here!
 // }
 
+function deleteLetter()
+{
+    if(currentTile <= 0) //check if another tile can be deleted
+    {
+        logDebug("Tile index is too low, can't delete");
+        return;
+    }
+    else //delete the previous tile
+    {
+        currentTile --;
+        const rowElement = rows[currentRow];
+        const tiles = rowElement.querySelectorAll('.tile');
+
+        tiles[currentTile].textContent = '';
+        tiles[currentTile].classList.remove('filled');
+
+        logDebug("Current row: [" + currentRow + "], Current tile: [" + currentTile + "], Current word: [" + getCurrentWord() + "]");
+    }
+}
+
 // TODO: Implement submitGuess function
 // function submitGuess() {
 //     // Your code here!
