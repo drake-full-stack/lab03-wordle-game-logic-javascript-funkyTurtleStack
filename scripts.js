@@ -149,6 +149,47 @@ function deleteLetter()
 //     // Your code here!
 // }
 
+function submitGuess()
+{
+    if(currentTile !== 5) //check that five letters have been entered
+    {
+        logDebug("Can't submit guess, not enough letters");
+        setTimeout(() => alert("Please enter 5 letters before trying to submit a guess"), 200);
+        return;
+    }
+    else //evaluate guess and respond based on results
+    {
+        const rowElement = rows[currentRow];
+        const tiles = rowElement.querySelectorAll('.tile');
+
+        let word = '';
+        tiles.forEach(tile => {word += tile.textContent;})
+
+        currentRow++;
+        currentTile = 0;
+        logDebug("Guess was '" + word + "' target word is '" + TARGET_WORD + "'.")
+
+        //checkGuess(); //check guess
+
+        if(word === TARGET_WORD)
+        {
+            GameOver = true;
+            logDebug("Target word hit. Game Over.");
+            setTimeout(() => alert("You Win"), 500);
+        }
+        else if(currentRow >= 6)
+        {
+            gameOver = true;
+            logDebug("No more guesses. Game Over.");
+            setTimeout(() => alert("You Lose"), 500);
+        }
+        else
+        {
+            logDebug("Guess is incorrect. Continuing game.")
+        }
+    }
+}
+
 // TODO: Implement checkGuess function (the hardest part!)
 // function checkGuess(guess, tiles) {
 //     // Your code here!
