@@ -196,3 +196,8 @@ function submitGuess()
 //     // Remember: handle duplicate letters correctly
 //     // Return the result array
 // }
+
+function checkGuess(guess, tiles)
+{
+    
+}
