@@ -199,5 +199,25 @@ function submitGuess()
 
 function checkGuess(guess, tiles)
 {
-    
+    const target = Target_WORD.split("");
+    const guess = guess.split("");
+    const result = ['absent','absent','absent','absent','absent'];
+
+    //check for correct letters
+    for(let i = 0; i < 5; i++)
+    {
+        if(guess[i] == target[i])
+        {
+            result[i] = 'correct';
+        }
+    }
+
+    //check if the letter is present in the target word
+    for(let i = 0; i < 5; i++)
+    {
+        if(result[i] != 'correct')
+        {
+            
+        }
+    }
 }
